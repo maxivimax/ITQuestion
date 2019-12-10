@@ -1,0 +1,62 @@
+import random
+# -----------------------------------------------------------
+WeiInv = []
+InvMax = 12
+WeiInvMax = 25
+ValInv = []
+ValInvMax = 0
+run = 1
+# -----------------------------------------------------------
+while len(WeiInv) < InvMax:
+    Wei = random.randint(1, 8)
+    print("Вес предмета - ", Wei)
+    WeiInv.append(Wei)
+# -----------------------------------------------------------
+while len(ValInv) < InvMax:
+    Val = random.randint(1, 8)
+    print("Ценность предмета - ", Val)
+    ValInv.append(Val)
+# -----------------------------------------------------------
+def max(iterable):
+    bug = WeiInvMax
+    it = iter(iterable)
+    try:
+        max_ = next(it)
+    except StopIteration:
+        raise ValueError('max() arg has no items')
+    for item in it:
+        if max_ < item and max_ < bug or max_ == bug:
+            max_ = item
+    return max_
+# -----------------------------------------------------------
+while run == 1:
+    if WeiInvMax > max(WeiInv):
+        maxWeiInd = WeiInv.index(max(WeiInv))
+        ValInvMax = ValInvMax + ValInv[-1]
+        WeiInvMax = WeiInvMax - WeiInv[-1]
+        WeiInv.remove(WeiInv[maxWeiInd])
+        ValInv.remove(ValInv[maxWeiInd])
+        print(WeiInv)
+        print("Остаток вместимости - ", WeiInvMax)
+        print("Набранная ценность - ", ValInvMax)
+    if WeiInvMax == max(WeiInv):
+        maxWeiInd = WeiInv.index(max(WeiInv))
+        ValInvMax = ValInvMax + maxWeiInd
+        WeiInvMax = WeiInvMax - max(WeiInv)
+        WeiInv.remove(WeiInv[max(WeiInv)])
+        ValInv.remove(ValInv[max(WeiInv)])
+        print(WeiInv)
+        print("Остаток вместимости - ", WeiInvMax)
+        print("Набранная ценность - ", ValInvMax)
+    if WeiInvMax < max(WeiInv):
+        print("---------------------------------------------------")
+        print(WeiInv)
+        print(ValInv)
+        print("Остаток вместимости - ", WeiInvMax)
+        print("Максимальная набранная ценность - ", ValInvMax)
+        exit()
+# -----------------------------------------------------------
+# -----------------------------------------------------------
+print("Wei", WeiInv)
+print("Val", ValInv)
+# -----------------------------------------------------------
